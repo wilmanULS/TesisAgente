@@ -13,7 +13,6 @@ class TDocenteAsignatura extends Model
 
     protected $fillable=[
 
-        'dasg_codigo',
         'dasg_fecha_inicio',
         'dasg_fecha_fin',
         'user_id',

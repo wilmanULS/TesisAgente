@@ -22,17 +22,24 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('Academico/Categorias/create', function () {
     return view('create');
 });
+//ruta ajax nivel/asignatura
 Route::get('/create/asignaturas/{nivel}','AsignaturasController@getAsignature');
+//ruta guardar
+Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
+//ruta edit ajax
+Route::get('Academico/edit/{doc}','UserController@Edit');
+Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
+Route::get('/Asignatura/delete','docenteAsignaturaController@delete')->name('Asignatura.delete');
+//ruta edit
+
+
 
 
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
 Route::resource('/create','UserController');
 
 
-//Route::get('/create',function(){
-//$niv_id=Input::get('niv_id');
-//$asignatura=Asignatura::where('as_nivel','=',$niv_id)->get();
-//return Response::json($asignatura); 
+
 
 
 

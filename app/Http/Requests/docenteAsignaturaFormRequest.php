@@ -25,7 +25,6 @@ class docenteAsignaturaFormRequest extends FormRequest
     {
         return [
             //
-            'codigo'=> 'required | max:30',
             'fechaIni'=>'required',
             'fechaFin'=>'required',
             'usuarioID'=>'requiered',

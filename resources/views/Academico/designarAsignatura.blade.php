@@ -1,12 +1,12 @@
 @extends('voyager::master')
 @section('css')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @stop
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-group"></i>Asignar
         <a href="../create" class="btn btn-success btn-add-new"><i class="voyager-plus"></i>
-           <span>Añadir nuevo</span> </a>
+            <span>Añadir nuevo</span> </a>
     </h1>
 @stop
 
@@ -19,34 +19,44 @@
                     <!-- form start -->
                     <form class="form-edit-add" role="form">
 
-                    <!-- CSRF TOKEN -->
-                    {{ csrf_field() }}
+                        <!-- CSRF TOKEN -->
 
-                    <div class="panel-footer">
-                        <table class="table table-striped database-tables">
-                            <thead>
-                            <tr>
-                                <th>Docentes</th>
-                                <th>Asignatura</th>
-                                <th>Nivel</th>
-                                <th>Asignatura Antecesora</th>
-                                <th style="text-align:right">{{ __('voyager.database.table_actions') }}</th>
-                            </tr>
-                            </thead>
-                            <tr>
-                                <td>
-                                    <p class="name">
-                                </td>
-                                <td>
-                                    <div class="bread_actions">
-                                    </div>
-                                </td>
-                                <td class="actions">
-                                </td>
-                            </tr>
-                        </table>
-                        <button type="submit" class="btn btn-primary">{{ __('voyager.generic.submit') }}</button>
-                    </div>
+
+                        <div class="panel-footer">
+                            <table id="Asignados" class="table table-striped database-tables">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Docentes</th>
+                                    <th>Asignatura</th>
+                                    <th>Nivel</th>
+                                    <th>Asignatura Antecesora</th>
+                                    <th>Acciones de la tabla</th>
+                                </tr>
+                                </thead>
+                                @foreach($consulta_docentes as $doc)
+                                    <tr>
+                                        <td>{{$doc->dasg_id}}</td>
+                                        <td>{{$doc->name}}</td>
+                                        <td>{{$doc->as_nombre}}</td>
+                                        <td>{{$doc->as_nivel}}</td>
+                                        <td>{{$doc->as_antecesor}}</td>
+                                        <td>
+                                            <a name="Eliminar" id="{{$doc->dasg_id}}'"
+                                               class="btn btn-sm btn-danger pull-right delete"><i
+                                                        class="voyager-trash"></i><span>Borrar</span></a>
+                                            <a href="edit/{{$doc->dasg_id}}" title="Editar"
+                                               class="btn btn-sm btn-primary pull-right edit"><i
+                                                        class="voyager-edit"></i> <span>Editar</span></a>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+
+                        </div>
+
+                        {{$consulta_docentes->render()}}
                     </form>
 
                     <iframe id="form_target" name="form_target" style="display:none"></iframe>
@@ -56,6 +66,31 @@
             </div>
         </div>
     </div>
+@stop
+@section('scripts')
+    <script>
+        $(document).on('click', '.delete', function () {
+            var id = $(this).attr('id');
+            if (confirm("esta seguro de querer eliminar este objeto "+ id)) {
+                $.ajax({
+                    url: "{{route('Asignatura.delete')}}",
+                    method: "get",
+                    data: {
+                        id: id
+                    }, success: function (msg) {
+                        alert("Se ha eliminado con exito " + msg);
+                      location.href='/Academico/designarAsignatura';
+                    }
+                })
+
+            } else {
+                return false;
+            }
+        });
+
+    </script>
+
+
 @stop
 
 
