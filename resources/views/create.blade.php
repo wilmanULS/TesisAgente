@@ -70,8 +70,6 @@
 
 @section('scripts')
     <script>
-
-
         $('#nivel').change(function (event) {
             $.get("/create/asignaturas/" + event.target.value + "", function (response, state) {
                 console.log(response);
@@ -118,31 +116,6 @@
                 }
             });
         });
-
-        /* $('#nivel').on('change',function(e){
-             console.log(e);
-             var niv_id=e.target.value;
-
-             //ajax
-             $.get("/ajax-asignatura?niv_id="+niv_id,function(data){
-              console.log(data);
-             });
-         });*/
-
-
-
-
-
-        /*$(document).ready(function(){
-            $('#nivel').on('change', function()
-            {
-                alert($(this).val());
-                $.get('create/Asignatura',function(data){
-
-                })
-            });
-
-        })*/
 
 
     </script>}

@@ -50,7 +50,7 @@ class UserController extends Controller
 
         if ($request->isMethod('get')) {
 
-           $docenteModelo = TDocenteAsignatura::findOrFail($request->input('id'));
+            $docenteModelo = TDocenteAsignatura::findOrFail($request->input('id'));
 
             $docenteModelo=$request->input('idDocente');
             $docenteModelo=$request->input('idAsignatura');
