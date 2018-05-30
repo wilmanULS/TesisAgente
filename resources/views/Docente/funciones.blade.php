@@ -68,7 +68,7 @@
 
                     <div class="form-group col-md-7">
                         <label for="name-2">Taxonomía</label>
-                        <select name='' class="form-control" id="">
+                        <select name='' class="form-control" id="taxonomia">
                             <option value='Seleccionar'>Seleccionar</option>
                         </select>
                     </div>
@@ -135,8 +135,7 @@
 
                             var dificultad = $('#dificultad').val();
                             var token = $('token').val();
-                            var div=$(this).parent();
-                            var op=" ";
+
                             $.ajax({
                                 type: "get",
                                 url: "{{ route('Docente.descripcion') }}",
@@ -164,6 +163,42 @@
 
                 }
                     });
+
+                    //ajax para taxonomia bloom
+                    $('#nivelC').change(function(){
+                        if($(this).val()!=''){
+                            console.log("hmm its change taxonomia");
+
+                            var idNivelC= $('#nivelC').val();
+                            var token = $('token').val();
+                            $.ajax({
+                                type: "get",
+                                url: "{{ route('Docente.verboTaxonomia') }}",
+                                data: {
+                                    nivelC:idNivelC,
+                                    token: token
+
+                                }, success: function (data) {
+                                    console.log('success');
+
+                                    console.log(data);
+
+                                    console.log(data.length);
+                                    $('#taxonomia').empty();
+                                    for(var i=0;i<data.length;i++){
+                                        $('#taxonomia').append('<option value="'+data[i].id+'">'+data[i].verbo+'</option>');
+
+                                    }
+
+
+                                }
+
+
+                            });
+
+                        }
+                    });
+
                 });
 
 

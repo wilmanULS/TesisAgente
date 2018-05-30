@@ -24,9 +24,10 @@ Route::get('Academico/Categorias/create', function () {
 });
 //ruta ajax nivel/asignatura
 Route::get('/create/asignaturas/{nivel}','AsignaturasController@getAsignature');
-Route::get('/Docente/descripcion/','competenciaController@getDescripcion')->name('Docente.descripcion');
 //ruta descricpion cognoscitiva
-
+Route::get('/Docente/descripcion/','competenciaController@getDescripcion')->name('Docente.descripcion');
+//ruta verbo taxonomia
+Route::get('/Docente/verboTaxonomia/','TaxonomiaController@getVerbo')->name('Docente.verboTaxonomia');
 //ruta guardar
 Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
 //ruta edit ajax

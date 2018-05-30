@@ -22,7 +22,7 @@ class competenciaController extends Controller
 
         $dificultad=$request->get('dificultad');
         $data=DB::table('nivelcognoscitivo')
-            ->select('nivelcognoscitivo.descripcion')
+            ->select('nivelcognoscitivo.descripcion','nivelcognoscitivo.id')
             ->where('nivelcognoscitivo.dificultad','=',''.$dificultad.'')
             ->get();
 

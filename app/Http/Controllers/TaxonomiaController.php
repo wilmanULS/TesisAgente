@@ -11,9 +11,9 @@ class TaxonomiaController extends Controller
     //
     public function getVerbo(Request $request){
 
-        $verbo=$request->get('id');
+        $verbo=$request->get('nivelC');
         $data=DB::table('taxonomia_blooms')
-            ->select('taxonomia_blooms.verbo')
+            ->select('taxonomia_blooms.verbo','taxonomia_blooms.id_nc')
             ->where('taxonomia_blooms.id_nc','=',''.$verbo.'')
             ->get();
 
