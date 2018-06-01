@@ -17,6 +17,7 @@ class TDocenteAsignatura extends Model
         'dasg_fecha_fin',
         'user_id',
         'asig_id',
+        'dasg_id',
 
     ];
 }

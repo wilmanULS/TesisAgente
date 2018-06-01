@@ -7,6 +7,9 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-documentation"></i>
+        @foreach($asignatura as $as)
+            {{$as->as_nombre}}
+        @endforeach
     </h1>
 
 @stop
@@ -74,9 +77,9 @@
                     </div>
                 </div>
 
-                <div id="main">
-                    <input type="button" id="btAdd" value="Añadir Elemento" class="bt"/>
-                    <input type="button" id="btRemove" value="Eliminar Elemento" class="bt"/>
+                <div class="row">
+                    <input type="button" id="btAdd" value="Añadir Competencia" class="btn btn-default"/>
+                    <input type="button" id="btRemove" value="Eliminar Competencia" class="btn btn-default"/>
                 </div>
 
             </form>
@@ -88,9 +91,12 @@
     <script>
         // ajax traer nivel cognoscitivo
         $(document).ready(function () {
-            //añadido dnamico
-
             var CP = 0;
+            var id = document.getElementsByName("idM");
+            console.log(id);
+
+
+            //añadido dnamico
 
 // Crear un elemento div añadiendo estilos CSS
             var container = $(document.getElementById('competencias'));
@@ -101,9 +107,9 @@
                     CP = CP + 1;
 
                     // Añadir caja de texto.
-                    $(container).append('<div class=row id=CP'+CP+'>  <div class="form-group col-md-4">\n' +
+                    $(container).append('<div class=row id=CP' + CP + '>  <div class="form-group col-md-4">\n' +
                         '                            <label for="name-2">Dificultad</label>\n' +
-                        '                            <select class="form-control dificultad" id="dificultad'+CP+'">\n' +
+                        '                            <select class="form-control dificultad" id="dificultad' + CP + '">\n' +
                         '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
                         '                                @foreach($dificultad as $dif)\n' +
                         '                                    <option value=\'{{$dif->dificultad}}\'>{{$dif->dificultad}}</option>\n' +
@@ -114,14 +120,14 @@
                         '\n' +
                         '                        <div class="form-group col-md-4">\n' +
                         '                            <label for="name-2">Nivel Cognoscitivo</label>\n' +
-                        '                            <select class="form-control nivelC" id="nivelC'+CP+'">\n' +
+                        '                            <select class="form-control nivelC" id="nivelC' + CP + '">\n' +
                         '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
                         '                            </select>\n' +
                         '                        </div>\n' +
                         '\n' +
                         '                        <div class="form-group col-md-4">\n' +
                         '                            <label for="name-2">Taxonomía</label>\n' +
-                        '                            <select name=\'\' class="form-control taxonomia" id="taxonomia'+CP+'">\n' +
+                        '                            <select name=\'\' class="form-control taxonomia" id="taxonomia' + CP + '">\n' +
                         '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
                         '                            </select>\n' +
                         '                        </div>\n' +
@@ -129,11 +135,12 @@
                         '                        <div class="form-group col-md-4">\n' +
                         '                            <label for="name-2">Competencia *</label>\n' +
                         '                            <textarea class="form-control" placeholder="descripcion competencia"\n' +
-                        '                                      id="competencia'+CP+'"></textarea>\n' +
+                        '                                      id="competencia' + CP + '"></textarea>\n' +
                         '                        </div>  </div>');
 
 
                     $('#main').after(container);
+                    addEvent(CP);
                 }
                 else {      //se establece un limite para añadir elementos, 20 es el limite
                     alert('Limite alcanzado');
@@ -225,79 +232,104 @@
 
                 }
             });
+
+//nombre
+            function getNombre() {
+
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('Materia.descripcion') }}",
+                    data: {
+                        dificultad: dificultad,
+                        token: token
+
+                    }, success: function (data) {
+                        console.log('success');
+
+                        console.log(data);
+
+                    }
+                });
+            }
+
+
 //n1
+            function addEvent(id) {
 
-            $('#dificultad1').change(function () {
-                if ($(this).val() != '') {
-                    console.log("hmm its change");
+                $('#dificultad' + id + '').unbind();
+                $('#nivelC1' + id + '').unbind();
+                $('#taxonomia' + id + '').unbind();
 
-                    var dificultad = $('#dificultad1').val();
-                    var token = $('token').val();
+                $('#dificultad' + id + '').change(function () {
+                    if ($(this).val() != '') {
+                        console.log("hmm its change");
 
-                    $.ajax({
-                        type: "get",
-                        url: "{{ route('Docente.descripcion') }}",
-                        data: {
-                            dificultad: dificultad,
-                            token: token
+                        var dificultad = $('#dificultad' + id + '').val();
+                        var token = $('token').val();
 
-                        }, success: function (data) {
-                            console.log('success');
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('Docente.descripcion') }}",
+                            data: {
+                                dificultad: dificultad,
+                                token: token
 
-                            console.log(data);
+                            }, success: function (data) {
+                                console.log('success');
 
-                            //console.log(data.length);
-                            $('#nivelC1').empty();
-                            for (var i = 0; i < data.length; i++) {
-                                $('#nivelC1').append('<option value="' + data[i].id + '">' + data[i].descripcion + '</option>');
+                                console.log(data);
+
+                                //console.log(data.length);
+                                $('#nivelC' + id + '').empty();
+                                for (var i = 0; i < data.length; i++) {
+                                    $('#nivelC' + id + '').append('<option value="' + data[i].id + '">' + data[i].descripcion + '</option>');
+
+                                }
+
 
                             }
 
 
-                        }
+                        });
 
+                    }
+                });
 
-                    });
+                //ajax para taxonomia bloom
+                $('#nivelC' + id + '').change(function () {
+                    if ($(this).val() != '') {
+                        console.log("hmm its change taxonomia");
 
-                }
-            });
+                        var idNivelC = $('#nivelC' + id + '').val();
+                        var token = $('token').val();
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('Docente.verboTaxonomia') }}",
+                            data: {
+                                nivelC: idNivelC,
+                                token: token
 
-            //ajax para taxonomia bloom
-            $('#nivelC1').change(function () {
-                if ($(this).val() != '') {
-                    console.log("hmm its change taxonomia");
+                            }, success: function (data) {
+                                console.log('success');
 
-                    var idNivelC = $('#nivelC1').val();
-                    var token = $('token').val();
-                    $.ajax({
-                        type: "get",
-                        url: "{{ route('Docente.verboTaxonomia') }}",
-                        data: {
-                            nivelC: idNivelC,
-                            token: token
+                                console.log(data);
 
-                        }, success: function (data) {
-                            console.log('success');
+                                console.log(data.length);
+                                $('#taxonomia' + id + '').empty();
+                                for (var i = 0; i < data.length; i++) {
+                                    $('#taxonomia' + id + '').append('<option value="' + data[i].id + '">' + data[i].verbo + '</option>');
 
-                            console.log(data);
+                                }
 
-                            console.log(data.length);
-                            $('#taxonomia1').empty();
-                            for (var i = 0; i < data.length; i++) {
-                                $('#taxonomia1').append('<option value="' + data[i].id + '">' + data[i].verbo + '</option>');
 
                             }
 
 
-                        }
+                        });
 
-
-                    });
-
-                }
-            });
-
-
+                    }
+                });
+            }
 
             //
         });
