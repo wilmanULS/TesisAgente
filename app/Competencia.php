@@ -10,6 +10,6 @@ class Competencia extends Model
     protected $table = "competencias";
     public $timestamps = false;
     protected $primary_key = 'id';
-    protected $filename = ['id','id_tax', 'descripcion'];
+    protected $filename = ['id','id_tax', 'descripcion','id_horas'];
 
 }

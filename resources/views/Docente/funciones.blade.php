@@ -7,11 +7,12 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-documentation"></i>
+
         @foreach($asignatura as $as)
             {{$as->as_nombre}}
         @endforeach
+        <input type="hidden" value="{{$idA}}" id="idDasg"/>
     </h1>
-
 @stop
 @section('content')
     <div class="panel panel-bordered">
@@ -81,7 +82,9 @@
                     <input type="button" id="btAdd" value="Añadir Competencia" class="btn btn-default"/>
                     <input type="button" id="btRemove" value="Eliminar Competencia" class="btn btn-default"/>
                 </div>
-
+                <div class="row">
+                    <input type="button" id="btnGuardar" value="Guardar" class="btn btn-primary"/>
+                </div>
             </form>
         </div>
 
@@ -92,10 +95,6 @@
         // ajax traer nivel cognoscitivo
         $(document).ready(function () {
             var CP = 0;
-            var id = document.getElementsByName("idM");
-            console.log(id);
-
-
             //añadido dnamico
 
 // Crear un elemento div añadiendo estilos CSS
@@ -283,15 +282,9 @@
                                 $('#nivelC' + id + '').empty();
                                 for (var i = 0; i < data.length; i++) {
                                     $('#nivelC' + id + '').append('<option value="' + data[i].id + '">' + data[i].descripcion + '</option>');
-
                                 }
-
-
                             }
-
-
                         });
-
                     }
                 });
 
@@ -320,17 +313,92 @@
                                     $('#taxonomia' + id + '').append('<option value="' + data[i].id + '">' + data[i].verbo + '</option>');
 
                                 }
-
-
                             }
-
-
                         });
-
                     }
                 });
             }
 
+            //
+
+            //submit form
+            $('#btnGuardar').on('click', function () {
+
+                var horaT = $('#horasT').val();
+                var horaP = $('#horasP').val();
+                var horaL = $('#horasL').val();
+                var dasg = $('#idDasg').val();
+                var tax = $('#taxonomia').val();
+                var com = $('#competencia').val();
+
+                $('#taxonomia1').unbind();
+                $('#taxonomia2').unbind();
+                $('#taxonomia3').unbind();
+                $('#taxonomia4').unbind();
+                $('#competencia1').unbind();
+                $('#competencia2').unbind();
+                $('#competencia3').unbind();
+                $('#competencia4').unbind();
+                var tax1 = "";
+                var tax2 = "";
+                var tax3 = "";
+                var tax4 = "";
+                var com1 = "";
+                var com2 = "";
+                var com3 = "";
+                var com4 = "";
+
+                if ($('#taxonomia1').val() != undefined) {
+                    tax1 = $('#taxonomia1').val();
+                }
+                if ($('#taxonomia2').val() != undefined) {
+                    tax2 = $('#taxonomia2').val();
+                }
+                if ($('#taxonomia3').val() != undefined) {
+                    tax3 = $('#taxonomia3').val();
+                }
+                if ($('#taxonomia4').val() != undefined) {
+                    tax4 = $('#taxonomia4').val();
+                }
+
+
+                if ($('#competencia1').val() != undefined) {
+                    com1 = $('#competencia1').val();
+                }
+                if ($('#competencia2').val() != undefined) {
+                    com2 = $('#competencia2').val();
+                }
+                if ($('#taxonomia3').val() != undefined) {
+                    com3 = $('#competencia3').val();
+                }
+                if ($('#competencia4').val() != undefined) {
+                    com4 = $('#competencia4').val();
+                }
+
+
+                var compentenciasV = {};
+                compentenciasV = {taxo:[tax,tax1,tax2,tax3,tax4],comp:[com,com1,com2,com3,com4]}
+                var Comp = JSON.stringify(compentenciasV)
+                var token = $('token').val();
+
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('Competencias.save') }}",
+                    data: {
+                        horasP: horaP,
+                        horasT: horaT,
+                        horasL: horaL,
+                        idDasg: dasg,
+                        token: token,
+                        competencias: Comp,
+
+                    }, success: function (msg) {
+                        alert("Se ha realizado el POST con exito ");
+                        location.href = '/Docente/index';
+                    }
+                });
+
+            });
             //
         });
     </script>

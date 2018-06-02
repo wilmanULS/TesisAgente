@@ -32,6 +32,7 @@ Route::get('/Docente/verboTaxonomia/','TaxonomiaController@getVerbo')->name('Doc
 Route::get('/Materia/descripcion/','AsignaturasController@getNombre')->name('Materia.descripcion');
 //ruta guardar
 Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
+Route::post('/contenido/save','competenciaController@saveContenido')->name('Competencias.save');
 
 //ruta edit ajax
 Route::get('Academico/edit/{doc}','UserController@Edit');

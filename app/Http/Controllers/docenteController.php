@@ -51,7 +51,7 @@ class docenteController extends Controller
             ->get();
 
 
-        return view('Docente.funciones', ["dificultad" => $dificultad, "asignatura" => $asignatura]);
+        return view('Docente.funciones', ["dificultad" => $dificultad, "asignatura" => $asignatura,"idA"=>$idM]);
 
 
     }
