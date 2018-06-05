@@ -17,8 +17,13 @@ class AsignaturasController extends Controller
            $asignatura=Asignatura::asignature($nivel);
             return response()->json($asignatura);
 
-
         }
 
+    }
+    public function getNombre(Request $request, $id){
+        if($request->ajax()){
+            $asignatura=Asignatura::asignatureID($id);
+            return response()->json($asignatura);
+        }
     }
 }

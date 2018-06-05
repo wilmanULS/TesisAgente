@@ -7,239 +7,399 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-documentation"></i>
-    </h1>
 
+        @foreach($asignatura as $as)
+            {{$as->as_nombre}}
+        @endforeach
+        <input type="hidden" value="{{$idA}}" id="idDasg"/>
+    </h1>
 @stop
 @section('content')
     <div class="panel panel-bordered">
         <div class="panel-body">
             @include('voyager::alerts')
             <form id="example-advanced-form" action="#">
-
                 <h3>Definir</h3>
-                <fieldset>
-                    <legend>Definir Horas de Asignatura</legend>
+                <div class="row">
 
-                    <div class="form-group col-md-7">
-
+                    <div class="form-group col-md-4">
                         <label for="name">Horas Teóricas *</label>
                         <input required type="number" class="form-control required"
                                placeholder="N° Total de Horas" id="horasT">
                     </div>
-                    <div class="form-group col-md-7">
+                    <div class="form-group col-md-4">
 
                         <label for="name">Horas Práctica *</label>
                         <input required type="number" class="form-control required"
                                placeholder="N° Total de Horas" id="horasP">
                     </div>
-                    <div class="form-group col-md-7">
+                    <div class="form-group col-md-4">
 
                         <label for="name">Horas Laboratorio *</label>
                         <input required type="number" class="form-control required"
                                placeholder="N° Total de Horas" id="horasL">
+
+                        <input type="hidden" value="{{csrf_token()}}" id="token"/>
                     </div>
-                    <div class="form-group col-md-6">
-                        <p>(*) Requerido</p>
+                </div>
+
+                <div id="competencias" class="row">
+                    <div id="CP" class="row">
+                        <div class="form-group col-md-4">
+                            <label for="name-2">Dificultad</label>
+                            <select class="form-control dificultad" id="dificultad">
+                                <option value='Seleccionar'>Seleccionar</option>
+                                @foreach($dificultad as $dif)
+                                    <option value='{{$dif->dificultad}}'>{{$dif->dificultad}}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="name-2">Nivel Cognoscitivo</label>
+                            <select class="form-control nivelC" id="nivelC">
+                                <option value='Seleccionar'>Seleccionar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="name-2">Taxonomía</label>
+                            <select name='' class="form-control taxonomia" id="taxonomia">
+                                <option value='Seleccionar'>Seleccionar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="name-2">Competencia *</label>
+                            <textarea class="form-control" placeholder="descripcion competencia"
+                                      id="competencia"></textarea>
+                        </div>
                     </div>
+                </div>
 
-                </fieldset>
-
-                <h3>Definir</h3>
-                <fieldset>
-                    <legend>Definir Competencia</legend>
-                    <input type="hidden" value="{{csrf_token()}}" id="token"/>
-                    <div class="form-group col-md-7">
-                        <label for="name-2">Dificultad</label>
-                        <select class="form-control" id="dificultad">
-                            <option value='Seleccionar'>Seleccionar</option>
-                            @foreach($dificultad as $dif)
-                                <option value='{{$dif->dificultad}}'>{{$dif->dificultad}}</option>
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-7">
-                        <label for="name-2">Nivel Cognoscitivo</label>
-                        <select class="form-control nivelC" id="nivelC">
-                            <option value='Seleccionar'>Seleccionar</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-7">
-                        <label for="name-2">Taxonomía</label>
-                        <select name='' class="form-control" id="taxonomia">
-                            <option value='Seleccionar'>Seleccionar</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-7">
-                        <label for="name-2">Competencia *</label>
-                        <textarea class="form-control" placeholder="descripcion competencia"
-                                  id="competencia"></textarea>
-                    </div>
-                    <p>(*) Mandatory</p>
-                </fieldset>
-
-                <h3>Warning</h3>
-                <fieldset>
-                    <legend>You are to young</legend>
-
-                    <p>Please go away ;-)</p>
-                </fieldset>
-
-                <h3>Finish</h3>
-                <fieldset>
-                    <legend>Terms and Conditions</legend>
-
-                    <input id="acceptTerms-2" name="acceptTerms" type="checkbox" class="required"> <label
-                            for="acceptTerms-2">I agree with the Terms and Conditions.</label>
-                </fieldset>
+                <div class="row">
+                    <input type="button" id="btAdd" value="Añadir Competencia" class="btn btn-default"/>
+                    <input type="button" id="btRemove" value="Eliminar Competencia" class="btn btn-default"/>
+                </div>
+                <div class="row">
+                    <input type="button" id="btnGuardar" value="Guardar" class="btn btn-primary"/>
+                </div>
             </form>
         </div>
+
     </div>
 @stop
 @section('scripts')
     <script>
-        var form = $("#example-advanced-form").show();
+        // ajax traer nivel cognoscitivo
+        $(document).ready(function () {
+            var CP = 0;
+            //añadido dnamico
 
-        form.steps({
-            headerTag: "h3",
-            bodyTag: "fieldset",
-            transitionEffect: "slideLeft",
-            onStepChanging: function (event, currentIndex, newIndex) {
-                // Allways allow previous action even if the current form is not valid!
-                if (currentIndex > newIndex) {
-                    return true;
+// Crear un elemento div añadiendo estilos CSS
+            var container = $(document.getElementById('competencias'));
+
+            $('#btAdd').click(function () {
+                if (CP < 4) {
+
+                    CP = CP + 1;
+
+                    // Añadir caja de texto.
+                    $(container).append('<div class=row id=CP' + CP + '>  <div class="form-group col-md-4">\n' +
+                        '                            <label for="name-2">Dificultad</label>\n' +
+                        '                            <select class="form-control dificultad" id="dificultad' + CP + '">\n' +
+                        '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
+                        '                                @foreach($dificultad as $dif)\n' +
+                        '                                    <option value=\'{{$dif->dificultad}}\'>{{$dif->dificultad}}</option>\n' +
+                        '\n' +
+                        '                                @endforeach\n' +
+                        '                            </select>\n' +
+                        '                        </div>\n' +
+                        '\n' +
+                        '                        <div class="form-group col-md-4">\n' +
+                        '                            <label for="name-2">Nivel Cognoscitivo</label>\n' +
+                        '                            <select class="form-control nivelC" id="nivelC' + CP + '">\n' +
+                        '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
+                        '                            </select>\n' +
+                        '                        </div>\n' +
+                        '\n' +
+                        '                        <div class="form-group col-md-4">\n' +
+                        '                            <label for="name-2">Taxonomía</label>\n' +
+                        '                            <select name=\'\' class="form-control taxonomia" id="taxonomia' + CP + '">\n' +
+                        '                                <option value=\'Seleccionar\'>Seleccionar</option>\n' +
+                        '                            </select>\n' +
+                        '                        </div>\n' +
+                        '\n' +
+                        '                        <div class="form-group col-md-4">\n' +
+                        '                            <label for="name-2">Competencia *</label>\n' +
+                        '                            <textarea class="form-control" placeholder="descripcion competencia"\n' +
+                        '                                      id="competencia' + CP + '"></textarea>\n' +
+                        '                        </div>  </div>');
+
+
+                    $('#main').after(container);
+                    addEvent(CP);
                 }
-                // Forbid next action on "Warning" step if the user is to young
-                //if (newIndex === 3 && Number($("#age-2").val()) < 18)
-                //{
-                //  return false;
-                //}
-                // Needed in some cases if the user went back (clean up)
-                if (currentIndex < newIndex) {
-                    // To remove error styles
-                    form.find(".body:eq(" + newIndex + ") label.error").remove();
-                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
-                }
-                form.validate().settings.ignore = ":disabled,:hidden";
-                return form.valid();
-            },
-            onStepChanged: function (event, currentIndex, priorIndex) {
-                // ajax traer nivel cognoscitivo
-                $(document).ready(function () {
-                    $('#dificultad').change(function(){
-                        if($(this).val()!=''){
-                            console.log("hmm its change");
-
-                            var dificultad = $('#dificultad').val();
-                            var token = $('token').val();
-
-                            $.ajax({
-                                type: "get",
-                                url: "{{ route('Docente.descripcion') }}",
-                                data: {
-                                    dificultad: dificultad,
-                                    token: token
-
-                                }, success: function (data) {
-                                    console.log('success');
-
-                                    console.log(data);
-
-                                    //console.log(data.length);
-                                    $('#nivelC').empty();
-                                    for(var i=0;i<data.length;i++){
-                                        $('#nivelC').append('<option value="'+data[i].id+'">'+data[i].descripcion+'</option>');
-
-                                    }
-
-
-                                }
-
-
-                    });
+                else {      //se establece un limite para añadir elementos, 20 es el limite
+                    alert('Limite alcanzado');
+                    $('#btAdd').attr('class', 'bt-disable');
+                    $('#btAdd').attr('disabled', 'disabled');
 
                 }
-                    });
+            });
 
-                    //ajax para taxonomia bloom
-                    $('#nivelC').change(function(){
-                        if($(this).val()!=''){
-                            console.log("hmm its change taxonomia");
+            $('#btRemove').click(function () {   // Elimina un elemento por click
+                if (CP != 0) {
+                    $('#CP' + CP).remove();
+                    CP = CP - 1;
+                }
+                if (CP == 0) {
+                    alert('Minimo una Competencia')
+                }
 
-                            var idNivelC= $('#nivelC').val();
-                            var token = $('token').val();
-                            $.ajax({
-                                type: "get",
-                                url: "{{ route('Docente.verboTaxonomia') }}",
-                                data: {
-                                    nivelC:idNivelC,
-                                    token: token
-
-                                }, success: function (data) {
-                                    console.log('success');
-
-                                    console.log(data);
-
-                                    console.log(data.length);
-                                    $('#taxonomia').empty();
-                                    for(var i=0;i<data.length;i++){
-                                        $('#taxonomia').append('<option value="'+data[i].id+'">'+data[i].verbo+'</option>');
-
-                                    }
+            });
 
 
-                                }
+            //
+            $('#dificultad').change(function () {
+                if ($(this).val() != '') {
+                    console.log("hmm its change");
 
+                    var dificultad = $('#dificultad').val();
+                    var token = $('token').val();
 
-                            });
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('Docente.descripcion') }}",
+                        data: {
+                            dificultad: dificultad,
+                            token: token
+
+                        }, success: function (data) {
+                            console.log('success');
+
+                            console.log(data);
+
+                            //console.log(data.length);
+                            $('#nivelC').empty();
+                            for (var i = 0; i < data.length; i++) {
+                                $('#nivelC').append('<option value="' + data[i].id + '">' + data[i].descripcion + '</option>');
+
+                            }
+
 
                         }
+
+
                     });
 
+                }
+            });
+
+            //ajax para taxonomia bloom
+            $('#nivelC').change(function () {
+                if ($(this).val() != '') {
+                    console.log("hmm its change taxonomia");
+
+                    var idNivelC = $('#nivelC').val();
+                    var token = $('token').val();
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('Docente.verboTaxonomia') }}",
+                        data: {
+                            nivelC: idNivelC,
+                            token: token
+
+                        }, success: function (data) {
+                            console.log('success');
+
+                            console.log(data);
+
+                            console.log(data.length);
+                            $('#taxonomia').empty();
+                            for (var i = 0; i < data.length; i++) {
+                                $('#taxonomia').append('<option value="' + data[i].id + '">' + data[i].verbo + '</option>');
+
+                            }
+
+
+                        }
+
+
+                    });
+
+                }
+            });
+
+//nombre
+            function getNombre() {
+
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('Materia.descripcion') }}",
+                    data: {
+                        dificultad: dificultad,
+                        token: token
+
+                    }, success: function (data) {
+                        console.log('success');
+
+                        console.log(data);
+
+                    }
+                });
+            }
+
+
+//n1
+            function addEvent(id) {
+
+                $('#dificultad' + id + '').unbind();
+                $('#nivelC1' + id + '').unbind();
+                $('#taxonomia' + id + '').unbind();
+
+                $('#dificultad' + id + '').change(function () {
+                    if ($(this).val() != '') {
+                        console.log("hmm its change");
+
+                        var dificultad = $('#dificultad' + id + '').val();
+                        var token = $('token').val();
+
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('Docente.descripcion') }}",
+                            data: {
+                                dificultad: dificultad,
+                                token: token
+
+                            }, success: function (data) {
+                                console.log('success');
+
+                                console.log(data);
+
+                                //console.log(data.length);
+                                $('#nivelC' + id + '').empty();
+                                for (var i = 0; i < data.length; i++) {
+                                    $('#nivelC' + id + '').append('<option value="' + data[i].id + '">' + data[i].descripcion + '</option>');
+                                }
+                            }
+                        });
+                    }
                 });
 
+                //ajax para taxonomia bloom
+                $('#nivelC' + id + '').change(function () {
+                    if ($(this).val() != '') {
+                        console.log("hmm its change taxonomia");
 
+                        var idNivelC = $('#nivelC' + id + '').val();
+                        var token = $('token').val();
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('Docente.verboTaxonomia') }}",
+                            data: {
+                                nivelC: idNivelC,
+                                token: token
 
+                            }, success: function (data) {
+                                console.log('success');
 
-             /*   $('#dificultad').change(function (event) {
+                                console.log(data);
 
-                    $.get("/Docente/descripcion/" + event.target.value + "", function (response, state) {
-                        console.log(response);
+                                console.log(data.length);
+                                $('#taxonomia' + id + '').empty();
+                                for (var i = 0; i < data.length; i++) {
+                                    $('#taxonomia' + id + '').append('<option value="' + data[i].id + '">' + data[i].verbo + '</option>');
 
-
-
-                    });
-
-                });*/
-                // Used to skip the "Warning" step if the user is old enough.
-                // if (currentIndex === 2 && Number($("#age-2").val()) >= 18)
-                //{
-                //  form.steps("next");
-                // }
-                // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
-                if (currentIndex === 2 && priorIndex === 3) {
-                    form.steps("previous");
-                }
-            },
-            onFinishing: function (event, currentIndex) {
-                form.validate().settings.ignore = ":disabled";
-                return form.valid();
-            },
-            onFinished: function (event, currentIndex) {
-                alert("Submitted!");
+                                }
+                            }
+                        });
+                    }
+                });
             }
-        }).validate({
-            errorPlacement: function errorPlacement(error, element) {
-                element.before(error);
-            },
-            rules: {
-                confirm: {
-                    equalTo: "#password-2"
+
+            //
+
+            //submit form
+            $('#btnGuardar').on('click', function () {
+
+                var horaT = $('#horasT').val();
+                var horaP = $('#horasP').val();
+                var horaL = $('#horasL').val();
+                var dasg = $('#idDasg').val();
+                var tax = $('#taxonomia').val();
+                var com = $('#competencia').val();
+
+                $('#taxonomia1').unbind();
+                $('#taxonomia2').unbind();
+                $('#taxonomia3').unbind();
+                $('#taxonomia4').unbind();
+                $('#competencia1').unbind();
+                $('#competencia2').unbind();
+                $('#competencia3').unbind();
+                $('#competencia4').unbind();
+                var tax1 = "";
+                var tax2 = "";
+                var tax3 = "";
+                var tax4 = "";
+                var com1 = "";
+                var com2 = "";
+                var com3 = "";
+                var com4 = "";
+
+                if ($('#taxonomia1').val() != undefined) {
+                    tax1 = $('#taxonomia1').val();
                 }
-            }
+                if ($('#taxonomia2').val() != undefined) {
+                    tax2 = $('#taxonomia2').val();
+                }
+                if ($('#taxonomia3').val() != undefined) {
+                    tax3 = $('#taxonomia3').val();
+                }
+                if ($('#taxonomia4').val() != undefined) {
+                    tax4 = $('#taxonomia4').val();
+                }
+
+
+                if ($('#competencia1').val() != undefined) {
+                    com1 = $('#competencia1').val();
+                }
+                if ($('#competencia2').val() != undefined) {
+                    com2 = $('#competencia2').val();
+                }
+                if ($('#taxonomia3').val() != undefined) {
+                    com3 = $('#competencia3').val();
+                }
+                if ($('#competencia4').val() != undefined) {
+                    com4 = $('#competencia4').val();
+                }
+
+
+                var compentenciasV = {};
+                compentenciasV = {taxo:[tax,tax1,tax2,tax3,tax4],comp:[com,com1,com2,com3,com4]}
+                var Comp = JSON.stringify(compentenciasV)
+                var token = $('token').val();
+
+                $.ajax({
+                    type: "post",
+                    url: "{{ route('Competencias.save') }}",
+                    data: {
+                        horasP: horaP,
+                        horasT: horaT,
+                        horasL: horaL,
+                        idDasg: dasg,
+                        token: token,
+                        competencias: Comp,
+
+                    }, success: function (msg) {
+                        alert("Se ha realizado el POST con exito ");
+                        location.href = '/Docente/index';
+                    }
+                });
+
+            });
+            //
         });
     </script>
 

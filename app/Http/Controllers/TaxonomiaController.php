@@ -13,7 +13,7 @@ class TaxonomiaController extends Controller
 
         $verbo=$request->get('nivelC');
         $data=DB::table('taxonomia_blooms')
-            ->select('taxonomia_blooms.verbo','taxonomia_blooms.id_nc')
+            ->select('taxonomia_blooms.verbo','taxonomia_blooms.id_nc','taxonomia_blooms.id')
             ->where('taxonomia_blooms.id_nc','=',''.$verbo.'')
             ->get();
 

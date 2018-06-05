@@ -38,7 +38,7 @@
                                         <td>{{$doc->as_nivel}}</td>
                                         <td>{{$doc->as_antecesor}}</td>
                                         <td>
-                                            <a href="funciones/{{$doc->dasg_id}}" title="definirContenido"
+                                            <a href="funciones/contenido/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
                                                         class="voyager-edit"></i> <span>Definir Contenido</span></a>
 
@@ -62,24 +62,25 @@
 @stop
 @section('scripts')
     <script>
-        $(document).on('click', '.delete', function () {
-            var id = $(this).attr('id');
-            if (confirm("esta seguro de querer eliminar este objeto "+ id)) {
-                $.ajax({
-                    url: "{{route('Asignatura.delete')}}",
-                    method: "get",
-                    data: {
-                        id: id
-                    }, success: function (msg) {
-                        alert("Se ha eliminado con exito " + msg);
-                        location.href='/Academico/designarAsignatura';
-                    }
-                })
 
-            } else {
-                return false;
-            }
-        });
+
+            {{--$(".edit").on('click', function () {--}}
+                {{--var id = $(this).attr('id');--}}
+                {{--console.log(id);--}}
+                {{--$.ajax({--}}
+                    {{--url: "{{route('Docente.Fcontenido')}}",--}}
+                    {{--method: "get",--}}
+                    {{--data: {--}}
+                        {{--idM: id--}}
+                    {{--}, success: function (msg) {--}}
+                        {{--alert("Se ha realizado el POST con exito " );--}}
+                        {{--location.href = '/Docente/funciones/contenido';--}}
+                    {{--}--}}
+                {{--});--}}
+
+            {{--});--}}
+
+
 
     </script>
 

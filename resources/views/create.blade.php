@@ -3,7 +3,6 @@
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-group"></i>Designar Asignatura
-
     </h1>
 @stop
 @section('content')

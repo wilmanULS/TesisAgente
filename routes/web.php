@@ -28,13 +28,17 @@ Route::get('/create/asignaturas/{nivel}','AsignaturasController@getAsignature');
 Route::get('/Docente/descripcion/','competenciaController@getDescripcion')->name('Docente.descripcion');
 //ruta verbo taxonomia
 Route::get('/Docente/verboTaxonomia/','TaxonomiaController@getVerbo')->name('Docente.verboTaxonomia');
+//get nombre
+Route::get('/Materia/descripcion/','AsignaturasController@getNombre')->name('Materia.descripcion');
 //ruta guardar
 Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
+Route::post('/contenido/save','competenciaController@saveContenido')->name('Competencias.save');
+
 //ruta edit ajax
 Route::get('Academico/edit/{doc}','UserController@Edit');
 Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
 Route::get('/Asignatura/delete','docenteAsignaturaController@delete')->name('Asignatura.delete');
-Route::get('Docente/funciones/{id}','docenteController@definirContenido');
+Route::get('Docente/funciones/contenido/{idM}','docenteController@definirContenido')->name('Docente.Fcontenido');
 
 
 
