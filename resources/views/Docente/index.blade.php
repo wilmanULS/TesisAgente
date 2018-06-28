@@ -27,7 +27,7 @@
                                     <th>Docente</th>
                                     <th>Asignatura</th>
                                     <th>Nivel</th>
-                                    <th>Asignatura Antecesora</th>
+
                                     <th>Acciones de la tabla</th>
                                 </tr>
                                 </thead>
@@ -36,11 +36,11 @@
                                         <td>{{$doc->name}}</td>
                                         <td>{{$doc->as_nombre}}</td>
                                         <td>{{$doc->as_nivel}}</td>
-                                        <td>{{$doc->as_antecesor}}</td>
+
                                         <td>
                                             <a href="funciones/contenido/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
-                                                        class="voyager-edit"></i> <span>Definir Contenido</span></a>
+                                                        class="voyager-edit"></i> <span>Registrar Horas y Competencias</span></a>
 
                                         </td>
                                     </tr>
