@@ -13,68 +13,60 @@ use DB;
 class UserController extends Controller
 {
     //
-    public function index( Request $request){ //revise como parametro un request
+    public function index(Request $request)
+    { //revise como parametro un request
 
-       $catDocentes=DB::table('users')
-        ->select('users.role_id','users.name','users.id')
-        ->where('role_id','=','3')
-        ->get();
+        $catDocentes = DB::table('users')
+            ->select('users.role_id', 'users.name', 'users.id')
+            ->where('role_id', '=', '3')
+            ->get();
 
-        $nivel=DB::table('t_cat_asignatura')
-        ->select('t_cat_asignatura.as_nivel')
-        ->distinct()
-        ->get();
+        $nivel = DB::table('t_cat_asignatura')
+            ->select('t_cat_asignatura.as_nivel')
+            ->distinct()
+            ->get();
 
-        return view("create",["catDocentes"=>$catDocentes,"nivel"=>$nivel]);
+        return view("create", ["catDocentes" => $catDocentes, "nivel" => $nivel]);
     }
 
     public function Edit($id) // nos muestra el formulario
     {
 
-        $catDocentes=DB::table('users')
-            ->select('users.role_id','users.name','users.id')
-            ->where('role_id','=','3')
+
+        $catDocentes = DB::table('users')
+            ->select('users.role_id', 'users.name', 'users.id')
+            ->where('role_id', '=', '3')
             ->get();
 
-        $nivel=DB::table('t_cat_asignatura')
+        $nivel = DB::table('t_cat_asignatura')
             ->select('t_cat_asignatura.as_nivel')
             ->distinct()
             ->get();
 
-        $busqueda=TDocenteAsignatura::findOrFail($id);
+        $busqueda = TDocenteAsignatura::findOrFail($id);
 
-        return view("Academico.edit",["catDocentes"=>$catDocentes,"nivel"=>$nivel,"busqueda"=>$busqueda]);
+        return view("Academico.edit", ["catDocentes" => $catDocentes, "nivel" => $nivel, "busqueda" => $busqueda]);
     }
+
     public function actualizar(Request $request) // modifica por GET
     {
 
-        if ($request->isMethod('get')) {
-
-            $docenteModelo = TDocenteAsignatura::findOrFail($request->input('id'));
-
-            $docenteModelo=$request->input('idDocente');
-            $docenteModelo=$request->input('idAsignatura');
-            $docenteModelo=$request->input('fecha_ini');
-            $docenteModelo=$request->input('fecha_fin');
-            $docenteModelo->save();
-
-//            dd($docenteModelo);
-//            // modelo-formulario
-//            $docenteModelo->dasg_fecha_inicio = $request->get('fecha_ini');
-//            $docenteModelo->dasg_fecha_fin = $request->get('fecha_fin');
-//            $docenteModelo->user_id = $request->get('iddocentes');
-//            $docenteModelo->asig_id = $request->get('idAsignatura');
-//            $docenteModelo->update();
-
+        if ($request->isMethod('post')) {
+            $id = $request->get('id');
+            $fechaInicio = $request->get('fecha_ini');
+            $fechaFin = $request->get('fecha_fin');
+            $asigID = $request->get('idAsignatura');
+            $resultado = DB::table('t_docente_asignaturas')->where('dasg_id', '=', $id)
+                ->update(['dasg_fecha_inicio' => $fechaInicio,
+                    'dasg_fecha_fin' => $fechaFin,
+                    'asig_id' => $asigID]);
         }
-
-
     }
 
     public function delete(Request $request, $id) // elimina
     {
-        $docenteModelo=TDocenteAsignatura::findOrFail($id);
+        $docenteModelo = TDocenteAsignatura::findOrFail($id);
         $docenteModelo->delete();
     }
-  
+
 }

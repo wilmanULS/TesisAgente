@@ -36,7 +36,7 @@ Route::post('/contenido/save','competenciaController@saveContenido')->name('Comp
 
 //ruta edit ajax
 Route::get('Academico/edit/{doc}','UserController@Edit');
-Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
+Route::post('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
 Route::get('/Asignatura/delete','docenteAsignaturaController@delete')->name('Asignatura.delete');
 Route::get('Docente/funciones/contenido/{idM}','docenteController@definirContenido')->name('Docente.Fcontenido');
 

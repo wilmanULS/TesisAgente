@@ -96,6 +96,7 @@
         $(document).on('click', '.update', function () {
 
             console.log('aqui');
+
             var id=$(this).attr('id');
             var idDocente=$('#idDocente').val();
             var idAsignatura=$('#asignatura').val();
@@ -104,7 +105,7 @@
             var token =$('token').val();
             $.ajax({
                 url: "{{route('Academico.update')}}",
-                method: "get",
+                method: "post",
                 data: {
                     id:id,
                     idDocente: idDocente,
