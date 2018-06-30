@@ -18,6 +18,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('/edit/{doc}','UserController@Edit');
+
 });
 Route::get('Academico/Categorias/create', function () {
     return view('create');
@@ -33,14 +35,19 @@ Route::get('/Materia/descripcion/','AsignaturasController@getNombre')->name('Mat
 //ruta guardar
 Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
 Route::post('/contenido/save','competenciaController@saveContenido')->name('Competencias.save');
-
+Route::get('/Docente/competencias','docenteController@tablaCompetencias');
 //ruta edit ajax
-Route::get('Academico/edit/{doc}','UserController@Edit');
-Route::post('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
+
+Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
 Route::get('/Asignatura/delete','docenteAsignaturaController@delete')->name('Asignatura.delete');
 Route::get('Docente/funciones/contenido/{idM}','docenteController@definirContenido')->name('Docente.Fcontenido');
 
+//route editar competencias
+Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
 
+//route ingresar contenido
+Route::get('Docente/contenido/{id}','planController@ingresarContenido')->name('Docente.contenido');
+Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
 
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
 Route::resource('/create','UserController');

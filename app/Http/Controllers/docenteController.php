@@ -56,4 +56,52 @@ class docenteController extends Controller
 
     }
 
+    public function tablaCompetencias(Request $request)
+    { //revise como parametro un request
+
+        $userId = Auth::user()->getAuthIdentifier();
+
+        if ($request) {
+
+            $competencias = DB::table('t_docente_asignaturas as d')
+                ->join('users', 'users.id', '=', 'd.user_id')
+                ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+                ->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor', 'd.user_id')
+                ->where('user_id', '=', '' . $userId . '')
+                //campo del fltro, comando SQL, texto a buscar
+                ->orderBy('d.dasg_id', 'desc')
+                ->paginate(7);
+
+
+            return view('Docente.competencias', ["competencias" => $competencias]);
+        }
+    }
+
+    public function edit($id) // nos muestra el formulario
+    {
+        $idM = base64_decode($id);
+
+        $editCompetenicas = DB::table('t_docente_asignaturas as d')
+            ->join('users', 'users.id', '=', 'd.user_id')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor', 'd.user_id')
+            ->where('d.dasg_id', '=', '' . $id . '');
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+        $dificultad = DB::table('nivelcognoscitivo')
+            ->select('nivelcognoscitivo.dificultad')
+            ->distinct()
+            ->get();
+
+
+        return view("Docente.editarCompetencias",["editCompetenicas"=>$editCompetenicas]);
+    }
+
 }

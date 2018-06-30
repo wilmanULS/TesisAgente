@@ -14,6 +14,7 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4.0",
         "laraveles/spanish": "^1.0",
+        "nesbot/carbon": "^1.29",
         "tcg/voyager": "^1.0"
     },
     "require-dev": {

@@ -70,4 +70,40 @@ class competenciaController extends Controller
         }
     }
 
+    public function editCompetencias($id){
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+        $dificultad = DB::table('nivelcognoscitivo')
+            ->select('nivelcognoscitivo.dificultad')
+            ->distinct()
+            ->get();
+
+        $mostrarCompetencias=DB::table('competencias as c')
+            ->join('taxonomia_blooms','taxonomia_blooms.id','=','c.id_tax')
+            ->join('nivelcognoscitivo','nivelcognoscitivo.id','=','taxonomia_blooms.id_nc')
+            ->join('asignatura_horas','asignatura_horas.id','=','c.id_horas')
+            ->select('c.id','c.descripcion','c.id_tax','c.id_horas',
+                'taxonomia_blooms.verbo','nivelcognoscitivo.dificultad','asignatura_horas.horasPracticas',
+                'asignatura_horas.horasTeoricas','asignatura_horas.horasLaboratorio','asignatura_horas.dasg_id')
+            ->where('asignatura_horas.dasg_id','=','' . $idM . '')
+            ->get();
+
+
+        return view('Docente.editarCompetencias', ["mostrarCompetencias"=>$mostrarCompetencias,"dificultad" => $dificultad, "asignatura" => $asignatura,"idA"=>$idM]);
+
+
+
+
+
+    }
+
+
+
 }

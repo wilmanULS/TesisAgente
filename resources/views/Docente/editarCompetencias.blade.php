@@ -18,8 +18,8 @@
     <div class="panel panel-bordered">
         <div class="panel-body">
             @include('voyager::alerts')
-
-                <h3>Registrar Horas</h3>
+            <form id="example-advanced-form" action="#">
+                <h3>Definir</h3>
                 <div class="row">
 
                     <div class="form-group col-md-4">
@@ -42,12 +42,7 @@
                         <input type="hidden" value="{{csrf_token()}}" id="token"/>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="panel panel-bordered">
-            <div class="panel-body">
-                <h3>Definir Competencias</h3>
                 <div id="competencias" class="row">
                     <div id="CP" class="row">
                         <div class="form-group col-md-4">
@@ -77,8 +72,11 @@
 
                         <div class="form-group col-md-4">
                             <label for="name-2">Competencia *</label>
-                            <textarea class="form-control" placeholder="descripcion competencia"
-                                      id="competencia"></textarea>
+                            @foreach($mostrarCompetencias as $doc)
+                                <textarea class="form-control" value="{{$doc->descripcion}}"
+                                          placeholder="descripcion competencia"
+                                          id="competencia">{{$doc->descripcion}}</textarea>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -382,7 +380,7 @@
 
 
                 var compentenciasV = {};
-                compentenciasV = {taxo:[tax,tax1,tax2,tax3,tax4],comp:[com,com1,com2,com3,com4]}
+                compentenciasV = {taxo: [tax, tax1, tax2, tax3, tax4], comp: [com, com1, com2, com3, com4]}
                 var Comp = JSON.stringify(compentenciasV)
                 var token = $('token').val();
 
@@ -399,7 +397,7 @@
 
                     }, success: function (msg) {
                         alert("Se ha realizado el POST con exito ");
-                        location.href = '/Docente/competencias';
+                        location.href = '/Docente/index';
                     }
                 });
 
