@@ -59,7 +59,7 @@
 
             <div class="form-group">
                 <button class="btn btn-primary" id='btnGuardar' type="submit">Guardar</button>
-                <button class="btn btn-danger" type="reset">Cancelar</button>
+                <button class="btn btn-danger" id="cancelar" type="reset">Cancelar</button>
             </div>
 
         </div>
@@ -80,7 +80,9 @@
             });
 
         });
-
+        $('#cancelar').on('click', function () {
+            location.href = '/Academico/designarAsignatura';
+        })
 
         $(document).ready(function () {
             $.ajaxSetup({
@@ -88,32 +90,59 @@
             });
         });
 
+        function validar() {
+            indiceA = document.getElementById("asignatura").value;
+            indiceN = document.getElementById("nivel").value;
+            if ((indiceA == null || indiceA == 'Seleccionar') && (indiceN == null || indiceN == 'Seleccionar')) {
+                return false;
+            } else {
+                var fIni = $('#fecha_ini').val();
+                var fFin = $('#fecha_fin').val();
+
+                if (fIni == "" && fFin == ""
+                ) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
+            }
+
+        }
 
         $('#btnGuardar').click(function (e) {
 
             e.preventDefault();
+            if (validar()) {
+                var idDocente = $('#idDocente').val();
+                var idAsignatura = $('#asignatura').val();
+                var fecha_ini = $('#fecha_ini').val();
+                var fecha_fin = $('#fecha_fin').val();
+                var token = $('token').val();
 
-            var idDocente = $('#idDocente').val();
-            var idAsignatura = $('#asignatura').val();
-            var fecha_ini = $('#fecha_ini').val();
-            var fecha_fin = $('#fecha_fin').val();
-            var token = $('token').val();
+                $.ajax({
+                    type: "post",
+                    url: "/create/asignaturas/save",
+                    data: {
+                        idDocente: idDocente,
+                        idAsignatura: idAsignatura,
+                        fecha_ini: fecha_ini,
+                        fecha_fin: fecha_fin,
+                        token: token
 
-            $.ajax({
-                type: "post",
-                url: "/create/asignaturas/save",
-                data: {
-                    idDocente: idDocente,
-                    idAsignatura: idAsignatura,
-                    fecha_ini: fecha_ini,
-                    fecha_fin: fecha_fin,
-                    token: token
+                    }, success: function (msg) {
+                        alert("Se ha realizado el POST con exito " + msg);
+                        location.href = 'Academico/designarAsignatura';
+                    }
+                });
 
-                }, success: function (msg) {
-                    alert("Se ha realizado el POST con exito " + msg);
-                    location.href = 'Academico/designarAsignatura';
-                }
-            });
+            } else {
+
+                alert('Complete los datos');
+            }
+
+
         });
 
 
