@@ -52,14 +52,28 @@ class UserController extends Controller
     {
 
         if ($request->isMethod('post')) {
+
             $id = $request->get('id');
+            $docenteModelo = TDocenteAsignatura::findOrFail($id);
+            $array = $docenteModelo->attributesToArray();
+            $asigID = $array['asig_id'];
+            ///
             $fechaInicio = $request->get('fecha_ini');
             $fechaFin = $request->get('fecha_fin');
-            $asigID = $request->get('idAsignatura');
+            $asigNID = $request->get('idAsignatura');
+
+            $asignatura = DB::table('t_cat_asignatura')
+                ->where('as_id', '=', $asigID)
+                ->update(['as_estado' => 1]);
+            $asignaturaN = DB::table('t_cat_asignatura')
+                ->where('as_id', '=', $asigNID)
+                ->update(['as_estado' => 0]);
+
             $resultado = DB::table('t_docente_asignaturas')->where('dasg_id', '=', $id)
                 ->update(['dasg_fecha_inicio' => $fechaInicio,
                     'dasg_fecha_fin' => $fechaFin,
-                    'asig_id' => $asigID]);
+                    'asig_id' => $asigNID]);
+
         }
     }
 
