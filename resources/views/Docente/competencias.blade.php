@@ -36,7 +36,7 @@
                                         <td>{{$doc->as_nombre}}</td>
                                         <td>{{$doc->as_nivel}}</td>
                                         <td>
-                                            <a href="/Docente/contenido/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
+                                            <a href="/semanas/semana1/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
                                                         class="voyager-edit"></i> <span>Registrar Contenido</span></a>
                                             <a href="/Docente/editarCompetencias/{{base64_encode($doc->dasg_id)}}" title="definirContenido"

@@ -23,15 +23,11 @@ class planController extends Controller
             ->get();
 
 
-        return view('Docente.contenido', ["asignatura" => $asignatura,"idA"=>$idM]);
-
-
-
+        return view('semanas.semana1', ["asignatura" => $asignatura,"idA"=>$idM]);
 
     }
 
-
-
+    
     public function savePlan(Request $request){
 
         if ($request->isMethod('post')) {

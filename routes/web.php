@@ -46,7 +46,7 @@ Route::get('Docente/funciones/contenido/{idM}','docenteController@definirConteni
 Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
 
 //route ingresar contenido
-Route::get('Docente/contenido/{id}','planController@ingresarContenido')->name('Docente.contenido');
+Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
 
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
@@ -56,6 +56,8 @@ Route::resource('/create','UserController');
 Route::resource('Docente/index','docenteController');
 Route::resource('Docente/funciones','competenciaController ');
 
+//routes objetos de Aprendizaje
+Route::resource('Repositorio/ingresarOA','ObjetoController');
 
 
 

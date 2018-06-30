@@ -23,9 +23,9 @@
                     <div class="panel-body pbody">
                         <div id="navigation_holder">
                             <ul class="pager">
-                                <li class="previous"><a href="elogbook.php">&larr; Anterior</a></li>
+                                <li class="previous"><a href="#">&larr; Anterior</a></li>
                                 <span style="font-size:1.3em;font-weight:bold; text-align: center;">Semana 1</span>
-                                <li class="next"><a href="elogbook_week3.php">Siguiente &rarr;</a></li>
+                                <li class="next"><a href="/semanas/semana2">Siguiente &rarr;</a></li>
                             </ul>
                         </div>
                         <hr>
@@ -106,7 +106,7 @@
                     '  <option value="4">4</option>\n' +
                     '  <option value="5">5</option>\n' +
                     '</select></td>' +
-                    '<td><a href="#" class="btn btn-sm btn-primary pull-right edit" "><i class="voyager-edit"></i></a>' +
+                    '<td><a href="/Repositorio/ingresarOA" class="btn btn-sm btn-primary pull-right edit" "><i class="voyager-edit"></i></a>' +
                     '<a href="#" class="btn btn-sm btn-danger pull-right delete"><i class="voyager-trash"></i></a></td></tr>');
                 $('.delete').off().click(function (e) {
                     $(this).parent('td').parent('tr').remove();
