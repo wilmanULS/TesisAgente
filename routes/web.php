@@ -49,6 +49,9 @@ Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompeten
 Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
 
+//routes OA
+
+
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
 Route::resource('/create','UserController');
 //DOCENTE
