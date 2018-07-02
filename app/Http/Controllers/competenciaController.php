@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Competencia;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class competenciaController extends Controller
@@ -70,7 +70,46 @@ class competenciaController extends Controller
         }
     }
 
-    public function editCompetencias($id){
+    public function viewCompetencias(Request $request)
+    { //revise como parametro un request
+
+        $userId = Auth::user()->getAuthIdentifier();
+
+        if ($request) {
+
+            $consulta_docentes = DB::table('t_docente_asignaturas as d')
+                ->join('users', 'users.id', '=', 'd.user_id')
+                ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+                ->join('roles', 'roles.id', '=', 'users.role_id')
+                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor', 'd.user_id')
+                ->where('user_id', '=', '' . $userId . '')
+                //campo del fltro, comando SQL, texto a buscar
+                ->orderBy('d.dasg_id', 'desc')
+                ->paginate(7);
+
+
+            return view('Docente.editarCompetencias', ["consulta_docentes" => $consulta_docentes]);
+        }
+    }
+
+
+    public function deleteCompetencia(Request $request)
+    {
+        $idC = base64_decode($request->input('idC'));
+        $competenciaModelo = Competencia::findOrFail($idC);
+
+        if ($competenciaModelo->delete()) {
+            echo 'Data eliminada';
+        } else {
+            echo 'han ocurrido un error';
+        }
+
+    }
+
+
+    public
+    function editCompetencias($id)
+    {
 
         $idM = base64_decode($id);
 
@@ -85,25 +124,21 @@ class competenciaController extends Controller
             ->distinct()
             ->get();
 
-        $mostrarCompetencias=DB::table('competencias as c')
-            ->join('taxonomia_blooms','taxonomia_blooms.id','=','c.id_tax')
-            ->join('nivelcognoscitivo','nivelcognoscitivo.id','=','taxonomia_blooms.id_nc')
-            ->join('asignatura_horas','asignatura_horas.id','=','c.id_horas')
-            ->select('c.id','c.descripcion','c.id_tax','c.id_horas',
-                'taxonomia_blooms.verbo','nivelcognoscitivo.dificultad','asignatura_horas.horasPracticas',
-                'asignatura_horas.horasTeoricas','asignatura_horas.horasLaboratorio','asignatura_horas.dasg_id')
-            ->where('asignatura_horas.dasg_id','=','' . $idM . '')
+        $mostrarCompetencias = DB::table('competencias as c')
+            ->join('taxonomia_blooms', 'taxonomia_blooms.id', '=', 'c.id_tax')
+            ->join('nivelcognoscitivo', 'nivelcognoscitivo.id', '=', 'taxonomia_blooms.id_nc')
+            ->join('asignatura_horas', 'asignatura_horas.id', '=', 'c.id_horas')
+            ->select('c.id', 'c.descripcion', 'c.id_tax', 'c.id_horas',
+                'taxonomia_blooms.verbo', 'nivelcognoscitivo.dificultad', 'asignatura_horas.horasPracticas',
+                'asignatura_horas.horasTeoricas', 'asignatura_horas.horasLaboratorio', 'asignatura_horas.dasg_id')
+            ->where('asignatura_horas.dasg_id', '=', '' . $idM . '')
             ->get();
 
 
-        return view('Docente.editarCompetencias', ["mostrarCompetencias"=>$mostrarCompetencias,"dificultad" => $dificultad, "asignatura" => $asignatura,"idA"=>$idM]);
-
-
-
+        return view('Docente.editarCompetencias', ["mostrarCompetencias" => $mostrarCompetencias, "dificultad" => $dificultad, "asignatura" => $asignatura, "idA" => $idM]);
 
 
     }
-
 
 
 }
