@@ -51,7 +51,7 @@ class docenteController extends Controller
             ->get();
 
 
-        return view('Docente.funciones', ["dificultad" => $dificultad, "asignatura" => $asignatura,"idA"=>$idM]);
+        return view('Docente.funciones', ["dificultad" => $dificultad, "asignatura" => $asignatura, "idA" => $idM]);
 
 
     }
@@ -67,7 +67,9 @@ class docenteController extends Controller
                 ->join('users', 'users.id', '=', 'd.user_id')
                 ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
-                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor', 'd.user_id')
+                ->join('asignatura_horas', 'asignatura_horas.dasg_id', '=', 'd.dasg_id')
+                ->join('competencias', 'competencias.id_horas', '=', 'asignatura_horas.id')
+                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 'competencias.descripcion','competencias.id', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor', 'd.user_id')
                 ->where('user_id', '=', '' . $userId . '')
                 //campo del fltro, comando SQL, texto a buscar
                 ->orderBy('d.dasg_id', 'desc')
@@ -101,7 +103,7 @@ class docenteController extends Controller
             ->get();
 
 
-        return view("Docente.editarCompetencias",["editCompetenicas"=>$editCompetenicas]);
+        return view("Docente.editarCompetencias", ["editCompetenicas" => $editCompetenicas]);
     }
 
 }

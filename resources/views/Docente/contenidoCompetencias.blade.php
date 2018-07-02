@@ -4,7 +4,7 @@
 @stop
 @section('page_header')
     <h1 class="page-title">
-        <i class="voyager-documentation"></i>Editar Competencias
+        <i class="voyager-documentation"></i>Mis Asignaturas
     </h1>
 @stop
 
@@ -26,25 +26,21 @@
                                 <tr>
                                     <th>Docente</th>
                                     <th>Asignatura</th>
-                                    <th>Competencia</th>
                                     <th>Nivel</th>
+
                                     <th>Acciones de la tabla</th>
                                 </tr>
                                 </thead>
-                                @foreach($competencias as $doc)
+                                @foreach($consulta_docentes as $doc)
                                     <tr>
                                         <td>{{$doc->name}}</td>
                                         <td>{{$doc->as_nombre}}</td>
-                                        <td>{{$doc->descripcion}}</td>
                                         <td>{{$doc->as_nivel}}</td>
+
                                         <td>
-                                            <a name="Eliminar" id="{{base64_encode($doc->id)}}'"
-                                               class="btn btn-sm btn-danger pull-right delete"><i
-                                                        class="voyager-trash"></i><span>Borrar</span></a>
-                                            <a href="/Docente/editarCompetencias/{{base64_encode($doc->dasg_id)}}"
-                                               title="definirContenido"
+                                            <a href="funciones/contenido/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
-                                                        class="voyager-edit"></i> <span>Editar Competencias</span></a>
+                                                        class="voyager-edit"></i> <span>Registrar Horas y Competencias</span></a>
 
                                         </td>
                                     </tr>
@@ -53,7 +49,7 @@
 
                         </div>
 
-                        {{$competencias->render()}}
+                        {{$consulta_docentes->render()}}
                     </form>
 
                     <iframe id="form_target" name="form_target" style="display:none"></iframe>
@@ -67,28 +63,25 @@
 @section('scripts')
     <script>
 
-        $(document).ready(function () {
-            $('.delete').on('click', function () {
-                var idC = $(this).attr('id');
-                if (confirm("esta seguro de querer eliminar este objeto "+ idC)) {
-                    $.ajax({
-                        url: "{{route('Competencias.delete')}}",
-                        method: "get",
-                        data: {
-                            idC:idC
-                        }, success: function (msg) {
-                            alert("Se ha eliminado con exito " + msg);
-                            location.href='/Docente/competencias';
-                        }
-                    })
-                } else {
-                    return false;
-                }
 
-            });
+        {{--$(".edit").on('click', function () {--}}
+        {{--var id = $(this).attr('id');--}}
+        {{--console.log(id);--}}
+        {{--$.ajax({--}}
+        {{--url: "{{route('Docente.Fcontenido')}}",--}}
+        {{--method: "get",--}}
+        {{--data: {--}}
+        {{--idM: id--}}
+        {{--}, success: function (msg) {--}}
+        {{--alert("Se ha realizado el POST con exito " );--}}
+        {{--location.href = '/Docente/funciones/contenido';--}}
+        {{--}--}}
+        {{--});--}}
+
+        {{--});--}}
 
 
-        });
+
     </script>
 
 

@@ -36,6 +36,8 @@ Route::get('/Materia/descripcion/','AsignaturasController@getNombre')->name('Mat
 Route::post('/create/asignaturas/save','docenteAsignaturaController@saveDocAsigDB');
 Route::post('/contenido/save','competenciaController@saveContenido')->name('Competencias.save');
 Route::get('/Docente/competencias','docenteController@tablaCompetencias');
+Route::get('/Docente/competencias/AgregarContenido','competenciaController@viewCompetencias');
+Route::get('/Docente/competencias/delete','competenciaController@deleteCompetencia')->name('Competencias.delete');
 //ruta edit ajax
 
 Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
