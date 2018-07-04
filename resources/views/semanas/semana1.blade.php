@@ -25,7 +25,7 @@
                             <ul class="pager">
                                 <li class="previous"><a href="#">&larr; Anterior</a></li>
                                 <span style="font-size:1.3em;font-weight:bold; text-align: center;">Semana 1</span>
-                                <li class="next"><a href="/semanas/semana2">Siguiente &rarr;</a></li>
+                                <li class="next"><a href="/semanas/semana2/{{base64_encode($idA)}}">Siguiente &rarr;</a></li>
                             </ul>
                         </div>
                         <hr>
@@ -43,19 +43,15 @@
                             </div>
                         </div>
                         <form method="post" action="">
-                            <div style="overflow-x: scroll;">
+
                                 <table class="table table-striped database-tables" id="mytable">
                                     <thead>
                                     <tr>
-                                        <th style='text-align:center'>Temas</th>
-                                        <th style='text-align:center'>Horas Asignadas</th>
-                                        <th style='text-align:center'>Horas Impartidas</th>
-                                        <th style='text-align:center'>% Aprobación</th>
-                                        <th style='text-align:center'>Tema Antesesor</th>
-                                        <th style='text-align:center'>Tema Sucesor</th>
-                                        <th style='text-align:center'>Estado</th>
-                                        <th style='text-align:center'>Prioridad</th>
-                                        <th style='text-align:center'>Acciones</th>
+                                        <th >Temas</th>
+                                        <th >Horas Asignadas</th>
+                                        <th >% Aprobación</th>
+                                        <th >Prioridad</th>
+                                        <th >Acciones</th>
 
                                     </tr>
 
@@ -93,13 +89,9 @@
             $("#masfilas").click(function () {
                 $("#mytable").append('<tr><td><input type="text" class="data"/></td>' +
                     '<td> <input class="data" type="number"/></td>' +
-                    '<td> <input class="data" type="number" /></td>' +
                     '<td> <input class="data" type="number"/></td>' +
-                    '<td> <input class="data" type="text" /></td>' +
-                    '<td> <input class="data" type="text" /></td>' +
-                    '<td> <input class="data" type="text" value="Activo" readonly/></td>' +
                     '<td> <select class="data">\n' +
-                    '  <option value="volvo" selected>--</option>\n' +
+                    '  <option value="volvo" selected>Seleccionar</option>\n' +
                     '<option value="1">1</option>\n' +
                     '  <option value="2">2</option>\n' +
                     '  <option value="3">3</option>\n' +
@@ -129,20 +121,16 @@
             for (var i = 0; i < inputs.length; i++) {
                 data.push(inputs[i].value);
             }
-            for (var i = 0; i < inputs.length; i = i + 8) {
-                var data1 = data.slice(i, i + 8);
+            for (var i = 0; i < inputs.length; i = i + 4) {
+                var data1 = data.slice(i, i + 4);
                 lista.push(data1);
             }
             for (var index in lista) {
                 var dataTemp = {
                     tema: lista[index][0],
                     hasig: lista[index][1],
-                    himp: lista[index][2],
-                    papro: lista[index][3],
-                    tantece: lista[index][4],
-                    tsuce: lista[index][5],
-                    estado: lista[index][6],
-                    prioridad: lista[index][7]
+                    papro: lista[index][2],
+                    prioridad: lista[index][3]
                 };
                 vectorAsignado.push(dataTemp);
             }

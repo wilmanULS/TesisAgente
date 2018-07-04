@@ -48,7 +48,23 @@ Route::get('Docente/funciones/contenido/{idM}','docenteController@definirConteni
 Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
 
 //route ingresar contenido
+Route::get('Docente/verSemanas/{id}','planController@verSemanas');
 Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
+Route::get('semanas/semana2/{id}','planController@ingresarContenido2')->name('Docente.contenido');
+Route::get('semanas/semana3/{id}','planController@ingresarContenido3')->name('Docente.contenido');
+Route::get('semanas/semana4/{id}','planController@ingresarContenido4')->name('Docente.contenido');
+Route::get('semanas/semana5/{id}','planController@ingresarContenido5')->name('Docente.contenido');
+Route::get('semanas/semana6/{id}','planController@ingresarContenido6')->name('Docente.contenido');
+Route::get('semanas/semana7/{id}','planController@ingresarContenido7')->name('Docente.contenido');
+Route::get('semanas/semana8/{id}','planController@ingresarContenido8')->name('Docente.contenido');
+Route::get('semanas/semana9/{id}','planController@ingresarContenido9')->name('Docente.contenido');
+Route::get('semanas/semana10/{id}','planController@ingresarContenido10')->name('Docente.contenido');
+Route::get('semanas/semana11/{id}','planController@ingresarContenido11')->name('Docente.contenido');
+Route::get('semanas/semana12/{id}','planController@ingresarContenido12')->name('Docente.contenido');
+Route::get('semanas/semana13/{id}','planController@ingresarContenido13')->name('Docente.contenido');
+Route::get('semanas/semana14/{id}','planController@ingresarContenido14')->name('Docente.contenido');
+Route::get('semanas/semana15/{id}','planController@ingresarContenido15')->name('Docente.contenido');
+Route::get('semanas/semana16/{id}','planController@ingresarContenido16')->name('Docente.contenido');
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
 
 //routes OA

@@ -38,9 +38,9 @@
                                         <td>{{$doc->as_nivel}}</td>
 
                                         <td>
-                                            <a href="funciones/contenido/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
+                                            <a href="/Docente/verSemanas/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
-                                                        class="voyager-edit"></i> <span>Agregar Contenido</span></a>
+                                                        class="voyager-edit"></i> <span>Ver Semanas</span></a>
 
                                         </td>
                                     </tr>

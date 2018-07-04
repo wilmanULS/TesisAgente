@@ -26,6 +26,249 @@ class planController extends Controller
         return view('semanas.semana1', ["asignatura" => $asignatura,"idA"=>$idM]);
 
     }
+    public function ingresarContenido2($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana2', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido3($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana3', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido4($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana4', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido5($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana5', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido6($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana6', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido7($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana7', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido8($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana8', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido9($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana9', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido10($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana10', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido11($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana11', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido12($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana12', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido13($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana13', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido14($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana14', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido15($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana15', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+    public function ingresarContenido16($id){
+
+
+        $idM = base64_decode($id);
+
+        $asignatura = DB::table('t_docente_asignaturas as d')
+            ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
+            ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')
+            ->where('d.dasg_id', '=', '' . $idM . '')
+            ->get();
+
+
+        return view('semanas.semana16', ["asignatura" => $asignatura,"idA"=>$idM]);
+
+    }
+
+    public function verSemanas($id){
+
+        $idM = base64_decode($id);
+
+
+
+
+
+
+
+
+
+
+
+        return view('Docente.verSemanas',["idA"=>$idM]);
+
+    }
 
     
     public function savePlan(Request $request){
@@ -62,20 +305,14 @@ class planController extends Controller
             foreach ($arrayLista as $temas) {
                $tema=$temas->tema;
                $horasAsignadas=$temas->hasig;
-               $horasImpartidas=$temas->himp;
-               $porcAprobacion=$temas->papro;
-               $antecesores=$temas->tantece;
-               $sucesrores=$temas->tsuce;
-               $estado= $temas->estado;
-               $prioridad=$temas->prioridad;
+                $porcAprobacion=$temas->papro;
+                $prioridad=$temas->prioridad;
 
 
                $saveTemas=DB::table('temas')->insert([
                    'tema'=>$tema,
-                    'estado'=>$estado,
+                   'estado'=>"activo",
                    'prioridad'=>$prioridad,
-                   'precedentes'=>$antecesores,
-                   'sucedentes'=>$sucesrores,
                    'id_contenido'=>$ultimoIdContenido,
 
                ]);
@@ -84,7 +321,6 @@ class planController extends Controller
                    $savePlan=DB::table('plan')->insert([
                        'id_tema'=>$ultimoIdTemas,
                        'horas_asignadas'=>$horasAsignadas,
-                       'horas_impartidas'=>$horasImpartidas,
                         'porcentaje_aprobacion'=> $porcAprobacion,
                         'estado'=>"activo",
 
