@@ -89,7 +89,7 @@ class docenteAsignaturaController extends Controller
 
     public function edit($id) // nos muestra el formulario
     {
-        return view("Academico.edit", ["resultado" => TDocenteAsignatura::findOrFail($id)]);
+        return view("admin.edit", ["resultado" => TDocenteAsignatura::findOrFail($id)]);
     }
 
     public function update(docenteAsignaturaFormRequest $request, $id) // modifica por GET

@@ -40,13 +40,13 @@ Route::get('/Docente/competencias/AgregarContenido','competenciaController@viewC
 Route::get('/Docente/competencias/delete','competenciaController@deleteCompetencia')->name('Competencias.delete');
 //ruta edit ajax
 
-Route::get('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
+Route::post('/Academico/edit/update','UserController@actualizar')->name('Academico.update');
 Route::get('/Asignatura/delete','docenteAsignaturaController@delete')->name('Asignatura.delete');
 Route::get('Docente/funciones/contenido/{idM}','docenteController@definirContenido')->name('Docente.Fcontenido');
 
 //route editar competencias
-Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
-
+Route::get('Docente/editarCompetencias/{id}/{idComp}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
+Route::post('Docente/updateCompetencias','competenciaController@updateCompetencia')->name('Competencias.update');
 //route ingresar contenido
 Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
