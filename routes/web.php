@@ -50,6 +50,7 @@ Route::get('Docente/editarCompetencias/{id}','competenciaController@editCompeten
 //route ingresar contenido
 Route::get('Docente/verSemanas/{id}','planController@verSemanas');
 Route::get('semanas/semana1/{idAsignatura}/{idSemana}/{index}','planController@ingresarContenido')->name('Docente.contenido');
+
 Route::get('semanas/semana2/{id}','planController@ingresarContenido2')->name('Docente.contenido');
 Route::get('semanas/semana3/{id}','planController@ingresarContenido3')->name('Docente.contenido');
 Route::get('semanas/semana4/{id}','planController@ingresarContenido4')->name('Docente.contenido');

@@ -35,6 +35,7 @@
                                     <tr>
                                         <td>Semana{{$i}}</td>
                                         <td>
+                                            
                                             <a href="/semanas/semana1/{{base64_encode($idA)}}/{{base64_encode($i)}}/0" title="definirContenido"
                                                class="btn btn-sm btn-primary pull-right edit" ><i
                                                         class="voyager-edit"></i> <span>Agregar Contenidos</span></a>

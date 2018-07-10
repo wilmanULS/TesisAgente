@@ -20,6 +20,7 @@ class planController extends Controller
         ->select('as_nombre')
         ->where('as_id', '=', '' . $idM . '')
         ->get();
+        
         // $asignatura = DB::table('t_docente_asignaturas as d')
         //     ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
         //     ->select('d.dasg_id', 'd.user_id', 'd.asig_id', 't_cat_asignatura.as_nombre')

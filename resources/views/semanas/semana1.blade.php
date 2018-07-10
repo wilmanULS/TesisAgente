@@ -240,7 +240,8 @@
             }
             var auxHours=hoursTaken+horas;
             if(auxHours>credits){
-                alert("No puede ingresar: "+horas+" horas para esta semana, le quedan disponibles : "+(credits-hoursTaken)+" horas para el resto de la semana");
+                
+                alert("No puedes ingresar: "+horas+" horas para esta semana, le quedan disponibles : "+(credits-hoursTaken)+" horas para el resto de la semana");
             }else{
 
             var DataCode = JSON.stringify(vectorAsignado);

@@ -17,8 +17,6 @@
                     <!-- form start -->
                     <form class="form-edit-add" role="form">
 
-                        <!-- CSRF TOKEN -->
-
 
                         <div class="panel-footer">
                             <table id="Asignados" class="table table-striped database-tables">
