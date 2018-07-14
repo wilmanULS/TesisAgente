@@ -51,6 +51,12 @@ Route::post('Docente/updateCompetencias','competenciaController@updateCompetenci
 Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
 
+Route::get('/admin/indexAsignaturas','AsignaturasController@index')->name('Administrador.indexAsignatura');
+Route::get('/admin/indexAsignaturas/create','AsignaturasController@create')->name('Administrador.createAsignatura');
+Route::post('/admin/indexAsignaturas/create/save','AsignaturasController@saveAsignatura')->name('Administrador.saveAsignatura');
+Route::get('/admin/indexAsignaturas/edit/{id}','AsignaturasController@editAsignatura')->name('Administrador.editAsignatura');
+Route::post('/admin/indexAsignaturas/edit/update','AsignaturasController@updateAsignatura')->name('Administrador.updateAsignatura');
+
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
 Route::resource('/create','UserController');
 //DOCENTE

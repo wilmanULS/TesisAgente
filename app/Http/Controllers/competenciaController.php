@@ -24,7 +24,7 @@ class competenciaController extends Controller
         $dificultad = $request->get('dificultad');
 
         $data = DB::table('nivelcognoscitivo')
-            ->select('nivelcognoscitivo.descripcionNC', 'nivelcognoscitivo.id')
+            ->select('nivelcognoscitivo.descripcion as descripcionNC', 'nivelcognoscitivo.id')
             ->where('nivelcognoscitivo.dificultad', '=', '' . $dificultad . '')
             ->get();
 
@@ -112,7 +112,6 @@ class competenciaController extends Controller
                 ->orderBy('d.dasg_id', 'desc')
                 ->paginate(7);
 
-
             return view('Docente.editarCompetencias', ["consulta_docentes" => $consulta_docentes]);
         }
     }
@@ -155,7 +154,7 @@ class competenciaController extends Controller
             ->join('nivelcognoscitivo', 'nivelcognoscitivo.id', '=', 'taxonomia_blooms.id_nc')
             ->join('asignatura_horas', 'asignatura_horas.id', '=', 'c.id_horas')
             ->select('c.id', 'c.descripcion', 'c.id_tax', 'c.id_horas',
-                'taxonomia_blooms.verbo', 'taxonomia_blooms.id_nc', 'nivelcognoscitivo.dificultad', 'nivelcognoscitivo.descripcionNC', 'asignatura_horas.horasPracticas',
+                'taxonomia_blooms.verbo', 'taxonomia_blooms.id_nc', 'nivelcognoscitivo.dificultad', 'nivelcognoscitivo.descripcion as descripcionNC', 'asignatura_horas.horasPracticas',
                 'asignatura_horas.horasTeoricas', 'asignatura_horas.horasLaboratorio', 'asignatura_horas.dasg_id')
             ->where('c.id', '=', '' . $idComp . '')
             ->get();
@@ -166,8 +165,8 @@ class competenciaController extends Controller
         $idTax = $data['id_tax'];
         $idHoras = $data['id_horas'];
         $dif = $data['dificultad'];
-        $nivelDes = $data['descripcionNC'];
-        $desComp = $data['descripcion'];
+        $nivelDes = $data['descripcion'];
+        $desComp = $data['descripcionNC'];
         $horasT = $data['horasTeoricas'];
         $horasL = $data['horasLaboratorio'];
         $horasP = $data['horasPracticas'];
