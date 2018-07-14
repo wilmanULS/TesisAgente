@@ -25,7 +25,7 @@ class docenteAsignaturaController extends Controller
                 ->join('users', 'users.id', '=', 'd.user_id')
                 ->join('t_cat_asignatura', 't_cat_asignatura.as_id', '=', 'd.asig_id')
                 ->join('roles', 'roles.id', '=', 'users.role_id')
-                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nombre', 't_cat_asignatura.as_nivel', 't_cat_asignatura.as_antecesor')
+                ->select('d.dasg_id', 'users.name', 't_cat_asignatura.as_nivel','t_cat_asignatura.as_nombre','t_cat_asignatura.as_antecesor')
                 ->where('users.name', 'LIKE', '%' . $query . '%')
                 //campo del fltro, comando SQL, texto a buscar
                 ->orderBy('d.dasg_id', 'desc')
@@ -89,7 +89,7 @@ class docenteAsignaturaController extends Controller
 
     public function edit($id) // nos muestra el formulario
     {
-        return view("Academico.edit", ["resultado" => TDocenteAsignatura::findOrFail($id)]);
+        return view("admin.edit", ["resultado" => TDocenteAsignatura::findOrFail($id)]);
     }
 
     public function update(docenteAsignaturaFormRequest $request, $id) // modifica por GET

@@ -21,8 +21,8 @@ class UserController extends Controller
             ->where('role_id', '=', '3')
             ->get();
 
-        $nivel = DB::table('t_cat_asignatura')
-            ->select('t_cat_asignatura.as_nivel')
+        $nivel = DB::table('t_cat_asignatura as asig')
+            ->select('asig.as_nivel')
             ->distinct()
             ->get();
 
@@ -38,8 +38,8 @@ class UserController extends Controller
             ->where('role_id', '=', '3')
             ->get();
 
-        $nivel = DB::table('t_cat_asignatura')
-            ->select('t_cat_asignatura.as_nivel')
+        $nivel = DB::table('t_cat_asignatura as asig')
+            ->select('asig.as_nivel')
             ->distinct()
             ->get();
 
