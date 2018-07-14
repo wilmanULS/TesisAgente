@@ -23,9 +23,9 @@
                     <div class="panel-body pbody">
                         <div id="navigation_holder">
                             <ul class="pager">
-                                <li class="previous"><a href="elogbook.php">&larr; Anterior</a></li>
+                                <li class="previous"><a href="/semanas/semana15/{{base64_encode($idA)}}">&larr; Anterior</a></li>
                                 <span style="font-size:1.3em;font-weight:bold; text-align: center;">Semana 16</span>
-                                <li class="next"><a href="elogbook_week3.php">Siguiente &rarr;</a></li>
+                                <li class="next"><a href="/semanas/semana16/{{base64_encode($idA)}}">Siguiente &rarr;</a></li>
                             </ul>
                         </div>
                         <hr>

@@ -48,14 +48,25 @@ Route::get('Docente/funciones/contenido/{idM}','docenteController@definirConteni
 Route::get('Docente/editarCompetencias/{id}/{idComp}','competenciaController@editCompetencias')->name('Docente.editarCompetencias');
 Route::post('Docente/updateCompetencias','competenciaController@updateCompetencia')->name('Competencias.update');
 //route ingresar contenido
+Route::get('Docente/verSemanas/{id}','planController@verSemanas');
 Route::get('semanas/semana1/{id}','planController@ingresarContenido')->name('Docente.contenido');
+
 Route::post('Docente/contenido/save','planController@savePlan')->name('Docente.contenidoSave');
+
 
 Route::get('/admin/indexAsignaturas','AsignaturasController@index')->name('Administrador.indexAsignatura');
 Route::get('/admin/indexAsignaturas/create','AsignaturasController@create')->name('Administrador.createAsignatura');
 Route::post('/admin/indexAsignaturas/create/save','AsignaturasController@saveAsignatura')->name('Administrador.saveAsignatura');
 Route::get('/admin/indexAsignaturas/edit/{id}','AsignaturasController@editAsignatura')->name('Administrador.editAsignatura');
 Route::post('/admin/indexAsignaturas/edit/update','AsignaturasController@updateAsignatura')->name('Administrador.updateAsignatura');
+
+//routes OA
+Route::post('Repositorio/ingresarOA/saveOA','ObjetoController@saveOA')->name('Repositorio.saveOA');
+Route::get('/Docente/Indextemas/ingresarOA','planController@indexTemas');
+Route::get('/Docente/verTemas/temas/{id}','planController@getTemas');
+Route::get('/Docente/verTemas/','planController@getContenido')->name('Docente.temas');
+Route::get('/Docente/verTemas/view','planController@getAllTemas')->name('Docente.verTemas');
+
 
 Route::resource('Academico/designarAsignatura','docenteAsignaturaController');
 Route::resource('/create','UserController');

@@ -27,12 +27,36 @@
             <h3>Actualizar Horas</h3>
             <div class="row">
 
+
                 <div class="form-group col-md-4">
                     <label for="name">Horas Teóricas *</label>
                     <input required type="number" class="form-control required"
                            placeholder="N° Total de Horas" value="{{$horasT}}" id="horasT">
                 </div>
                 <div class="form-group col-md-4">
+
+                        <div class="panel-footer">
+                            <table id="Asignados" class="table table-striped database-tables">
+                                <thead>
+                                <tr>
+                                    <th>Docente</th>
+                                    <th>Asignatura</th>
+                                    <th>Nivel</th>
+
+                                    <th>Acciones de la tabla</th>
+                                </tr>
+                                </thead>
+                                @foreach($consulta_docentes as $doc)
+                                    <tr>
+                                        <td>{{$doc->name}}</td>
+                                        <td>{{$doc->as_nombre}}</td>
+                                        <td>{{$doc->as_nivel}}</td>
+
+                                        <td>
+                                            <a href="/Docente/verSemanas/{{base64_encode($doc->dasg_id)}}" title="definirContenido"
+                                               class="btn btn-sm btn-primary pull-right edit" id="{{$doc->dasg_id}}"><i
+                                                        class="voyager-edit"></i> <span>Ver Semanas</span></a>
+
 
                     <label for="name">Horas Práctica *</label>
                     <input required type="number" class="form-control required"

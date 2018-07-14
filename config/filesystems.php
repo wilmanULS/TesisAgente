@@ -43,6 +43,10 @@ return [
 
     'disks' => [
 
+        'ObjetosAprendizaje' => [
+            'driver' => 'local',
+            'root' => public_path('ObjetosAprendizaje'),
+        ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
